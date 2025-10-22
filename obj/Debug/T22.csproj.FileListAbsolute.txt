@@ -1,0 +1,7 @@
+C:\Users\UCLAB516\Desktop\T2L\T22\T22\bin\Debug\T22.exe.config
+C:\Users\UCLAB516\Desktop\T2L\T22\T22\bin\Debug\T22.exe
+C:\Users\UCLAB516\Desktop\T2L\T22\T22\bin\Debug\T22.pdb
+C:\Users\UCLAB516\Desktop\T2L\T22\T22\obj\Debug\T22.csproj.AssemblyReference.cache
+C:\Users\UCLAB516\Desktop\T2L\T22\T22\obj\Debug\T22.csproj.CoreCompileInputs.cache
+C:\Users\UCLAB516\Desktop\T2L\T22\T22\obj\Debug\T22.exe
+C:\Users\UCLAB516\Desktop\T2L\T22\T22\obj\Debug\T22.pdb

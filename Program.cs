@@ -3,63 +3,111 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
-namespace HistogramaEdades
+namespace BibliotecaVirtual
 {
+    // Clase que representa un libro
+    class Libro
+    {
+        public string Titulo { get; set; }
+        public string Autor { get; set; }
+        public int Año { get; set; }
+
+        public Libro(string titulo, string autor, int año)
+        {
+            Titulo = titulo;
+            Autor = autor;
+            Año = año;
+        }
+
+        public void MostrarInfo()
+        {
+            Console.WriteLine($"Título: {Titulo} | Autor: {Autor} | Año: {Año}");
+        }
+    }
+
+    // Clase principal
     class Program
     {
+        static List<Libro> biblioteca = new List<Libro>();
+
         static void Main(string[] args)
         {
-            Console.Write("Ingrese la cantidad de personas: ");
-            int n = int.Parse(Console.ReadLine());
-
-            int[] edades = GenerarEdades(n);
-            MostrarHistograma(edades);
-            Console.WriteLine($"\nEdad mayor: {EdadMayor(edades)}");
-            Console.WriteLine($"Promedio de edades: {Promedio(edades):0.00}");
-        }
-
-        // Genera edades aleatorias entre 5 y 30
-        static int[] GenerarEdades(int n)
-        {
-            Random rnd = new Random();
-            int[] edades = new int[n];
-
-            for (int i = 0; i < n; i++)
-                edades[i] = rnd.Next(5, 31); // 31 es exclusivo
-
-            return edades;
-        }
-
-        // Muestra el histograma con barras de '*'
-        static void MostrarHistograma(int[] edades)
-        {
-            Console.WriteLine("\nHistograma de edades:");
-            for (int i = 0; i < edades.Length; i++)
+            int opcion;
+            do
             {
-                Console.WriteLine($"Persona {i + 1,2}: {edades[i],2} | {new string('*', edades[i] / 2)}");
+                Console.WriteLine("\n=== BIBLIOTECA VIRTUAL ===");
+                Console.WriteLine("1. Agregar libro");
+                Console.WriteLine("2. Mostrar todos los libros");
+                Console.WriteLine("3. Buscar por autor");
+                Console.WriteLine("4. Salir");
+                Console.Write("Elija una opción: ");
+                opcion = int.Parse(Console.ReadLine());
+
+                switch (opcion)
+                {
+                    case 1:
+                        AgregarLibro();
+                        break;
+                    case 2:
+                        MostrarLibros();
+                        break;
+                    case 3:
+                        BuscarPorAutor();
+                        break;
+                    case 4:
+                        Console.WriteLine("Saliendo del programa...");
+                        break;
+                    default:
+                        Console.WriteLine("Opción no válida. Intente de nuevo.");
+                        break;
+                }
+
+            } while (opcion != 4);
+        }
+
+        // Función para agregar libros
+        static void AgregarLibro()
+        {
+            Console.Write("\nIngrese el título del libro: ");
+            string titulo = Console.ReadLine();
+            Console.Write("Ingrese el autor: ");
+            string autor = Console.ReadLine();
+            Console.Write("Ingrese el año de publicación: ");
+            int año = int.Parse(Console.ReadLine());
+
+            biblioteca.Add(new Libro(titulo, autor, año));
+            Console.WriteLine("✅ Libro agregado correctamente.");
+        }
+
+        // Función para mostrar todos los libros
+        static void MostrarLibros()
+        {
+            Console.WriteLine("\n=== LISTA DE LIBROS ===");
+            if (biblioteca.Count == 0)
+                Console.WriteLine("No hay libros registrados.");
+            else
+                foreach (Libro libro in biblioteca)
+                    libro.MostrarInfo();
+        }
+
+        // Función para buscar libros por autor
+        static void BuscarPorAutor()
+        {
+            Console.Write("\nIngrese el nombre del autor: ");
+            string autorBuscado = Console.ReadLine();
+            bool encontrado = false;
+
+            foreach (Libro libro in biblioteca)
+            {
+                if (libro.Autor.ToLower() == autorBuscado.ToLower())
+                {
+                    libro.MostrarInfo();
+                    encontrado = true;
+                }
             }
-        }
 
-        // Devuelve la edad mayor
-        static int EdadMayor(int[] edades)
-        {
-            int mayor = edades[0];
-            foreach (int edad in edades)
-                if (edad > mayor)
-                    mayor = edad;
-            return mayor;
-        }
-
-        // Calcula el promedio
-        static double Promedio(int[] edades)
-        {
-            double suma = 0;
-            foreach (int edad in edades)
-                suma += edad;
-            return suma / edades.Length;
+            if (!encontrado)
+                Console.WriteLine("No se encontraron libros de ese autor.");
         }
     }
 }
-
